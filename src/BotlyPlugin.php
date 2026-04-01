@@ -23,6 +23,8 @@ class BotlyPlugin implements Plugin
 
     protected string | Closure | null $navigationLabel = null;
 
+    protected string | Closure | null $navigationSort = null;
+
     protected string | Closure | null $title = null;
 
     protected string | Closure | null $slug = null;
@@ -81,6 +83,13 @@ class BotlyPlugin implements Plugin
         return $this;
     }
 
+    public function navigationSort(string | Closure | null $sort): static
+    {
+        $this->navigationSort = $sort;
+
+        return $this;
+    }
+
     public function title(string | Closure | null $title): static
     {
         $this->title = $title;
@@ -115,6 +124,11 @@ class BotlyPlugin implements Plugin
     public function getNavigationLabel(): string
     {
         return $this->evaluate($this->navigationLabel) ?? __('botly::botly.navigation.label');
+    }
+
+    public function getNavigationSort(): ?int
+    {
+        return $this->evaluate($this->navigationSort);
     }
 
     public function getTitle(): ?string
