@@ -55,6 +55,11 @@ class BotlyPage extends Page implements HasActions, HasSchemas
         return BotlyPlugin::get()->getNavigationLabel();
     }
 
+    public static function getNavigationSort(): ?int
+    {
+        return BotlyPlugin::get()->getNavigationSort();
+    }
+
     public static function getSlug(?Panel $panel = null): string
     {
         return BotlyPlugin::get()->getSlug() ?? parent::getSlug($panel);
