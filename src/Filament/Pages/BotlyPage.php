@@ -75,10 +75,8 @@ class BotlyPage extends Page implements HasActions, HasSchemas
         $settings = Botly::query()->first();
 
         $existingOptions = $settings ? $settings->toArray() : [
-            'rules' => [
-                ...$this->getPersistentRules(),
-                ...config('botly.defaults.rules', []),
-            ],
+            'persistent_rules' => $this->getPersistentRules(),
+            'rules' => config('botly.defaults.rules', []),
             'sitemaps' => config('botly.defaults.sitemaps', []),
             'ai_crawlers' => config('botly.defaults.ai_crawlers', []),
         ];
