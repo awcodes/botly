@@ -23,7 +23,7 @@ class BotlyPlugin implements Plugin
 
     protected string | Closure | null $navigationLabel = null;
 
-    protected string | Closure | null $navigationSort = null;
+    protected int | Closure | null $navigationSort = null;
 
     protected string | Closure | null $title = null;
 
@@ -83,7 +83,7 @@ class BotlyPlugin implements Plugin
         return $this;
     }
 
-    public function navigationSort(string | Closure | null $sort): static
+    public function navigationSort(int | Closure | null $sort): static
     {
         $this->navigationSort = $sort;
 
