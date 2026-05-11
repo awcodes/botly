@@ -45,6 +45,8 @@ jobs:
             pest: ^3.7
             pest-plugin-laravel: ^3.0
         exclude:
+          - laravel: 13.*
+            php: 8.2
           - laravel: 11.*
             php: 8.5
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
