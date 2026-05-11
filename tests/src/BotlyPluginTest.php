@@ -76,3 +76,19 @@ it('returns null navigation group by default', function (): void {
 it('returns a custom navigation group when set', function (): void {
     expect(BotlyPlugin::make()->navigationGroup('SEO')->getNavigationGroup())->toBe('SEO');
 });
+
+it('allows access by default', function (): void {
+    expect(BotlyPlugin::make()->canAccess())->toBeTrue();
+});
+
+it('denies access when authorize is set to false', function (): void {
+    expect(BotlyPlugin::make()->authorize(false)->canAccess())->toBeFalse();
+});
+
+it('allows access when authorize closure returns true', function (): void {
+    expect(BotlyPlugin::make()->authorize(fn () => true)->canAccess())->toBeTrue();
+});
+
+it('denies access when authorize closure returns false', function (): void {
+    expect(BotlyPlugin::make()->authorize(fn () => false)->canAccess())->toBeFalse();
+});
