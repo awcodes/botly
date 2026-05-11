@@ -17,6 +17,8 @@ class BotlyPlugin implements Plugin
 {
     use EvaluatesClosures;
 
+    protected bool | Closure $authorizeUsing = true;
+
     protected string | BackedEnum | null $navigationIcon = null;
 
     protected string | UnitEnum | null $navigationGroup = null;
@@ -60,6 +62,18 @@ class BotlyPlugin implements Plugin
     public function boot(Panel $panel): void
     {
         //
+    }
+
+    public function authorize(bool | Closure $callback = true): static
+    {
+        $this->authorizeUsing = $callback;
+
+        return $this;
+    }
+
+    public function canAccess(): bool
+    {
+        return $this->evaluate($this->authorizeUsing) === true;
     }
 
     public function navigationIcon(string | BackedEnum | Htmlable | null $icon): static

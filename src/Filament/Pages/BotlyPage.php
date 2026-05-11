@@ -40,6 +40,11 @@ class BotlyPage extends Page implements HasActions, HasSchemas
 
     protected string $view = 'botly::page';
 
+    public static function canAccess(): bool
+    {
+        return BotlyPlugin::get()->canAccess();
+    }
+
     public static function getNavigationIcon(): string | BackedEnum | Htmlable | null
     {
         return BotlyPlugin::get()->getNavigationIcon() ?? parent::getNavigationIcon();
