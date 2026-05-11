@@ -110,7 +110,21 @@ Each rule is an array with three keys:
 | `directive`  | `allow`, `disallow`, `crawl-delay`, `clean-param` |
 | `path`       | The path to allow or disallow, e.g. `/admin`      |
 
-## Customisation
+## Customization
+
+### Authorization
+
+By default, all users with access to your Filament panel can visit the Botly page. You can restrict access by passing a boolean or a closure to `authorize()`:
+
+```php
+// Always deny access
+BotlyPlugin::make()
+    ->authorize(false),
+
+// Conditionally allow access
+BotlyPlugin::make()
+    ->authorize(fn () => auth()->user()->isAdmin()),
+```
 
 ### Navigation
 
