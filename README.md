@@ -9,6 +9,8 @@ Botly is a Filament plugin to manage your site's `robots.txt` file directly from
 [![Filament Version](https://img.shields.io/badge/Filament-4.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/4.x/panels/installation)
 [![Filament Version](https://img.shields.io/badge/Filament-5.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/5.x/panels/installation)
 
+<!-- [docs_start] -->
+
 ## Installation
 
 Install the package via Composer:
@@ -146,6 +148,8 @@ BotlyPlugin::make()
 ## AI Crawler Blocking
 
 The admin page includes a **Block AI Crawlers** checkbox list. Selecting crawlers will add `Disallow: /` entries for each one in the output. Botly ships with a curated list of known AI crawlers including GPTBot, ClaudeBot, PerplexityBot, and more.
+
+<!-- [docs_end] -->
 
 ## Testing
 
