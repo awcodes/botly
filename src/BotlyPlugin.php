@@ -157,7 +157,10 @@ class BotlyPlugin implements Plugin
 
     public function getPersistentRules(): array
     {
-        return $this->persistentRules ?? config('botly.persistent_rules', []);
+        return [
+            ...config('botly.persistent_rules', []),
+            ...($this->persistentRules ?? []),
+        ];
     }
 
     /**
