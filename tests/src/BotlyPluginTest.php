@@ -54,6 +54,21 @@ it('returns persistent rules set directly on the plugin', function (): void {
     expect(BotlyPlugin::make()->persistentRules($rules)->getPersistentRules())->toBe($rules);
 });
 
+it('merges persistent rules from config and the plugin', function (): void {
+    config()->set('botly.persistent_rules', [
+        ['user_agent' => '*', 'directive' => 'Disallow', 'path' => '/admin'],
+    ]);
+
+    $rules = [
+        ['user_agent' => '*', 'directive' => 'Disallow', 'path' => '/secret'],
+    ];
+
+    expect(BotlyPlugin::make()->persistentRules($rules)->getPersistentRules())->toBe([
+        ['user_agent' => '*', 'directive' => 'Disallow', 'path' => '/admin'],
+        ['user_agent' => '*', 'directive' => 'Disallow', 'path' => '/secret'],
+    ]);
+});
+
 it('returns a non-empty list of ai crawlers', function (): void {
     $crawlers = BotlyPlugin::make()->getAICrawlers();
 
