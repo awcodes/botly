@@ -24,6 +24,7 @@ jobs:
       matrix:
         php: [ 8.5, 8.4, 8.3, 8.2 ]
         laravel: [ 13.*, 12.*, 11.* ]
+        filament: [ 5.* ]
         dependency-version: [ prefer-stable ]
         include:
           - laravel: 13.*
@@ -44,12 +45,37 @@ jobs:
           - php: 8.2
             pest: ^3.7
             pest-plugin-laravel: ^3.0
+          # Targeted Filament v4 coverage (v5 is covered by the matrix above).
+          # Filament 4 and 5 support the same Laravel/PHP range, so one job per
+          # Laravel line is enough without doubling the matrix. Standalone include
+          # jobs don't inherit other includes, so pest deps are set explicitly.
+          - php: 8.4
+            laravel: 13.*
+            testbench: 11.*
+            filament: 4.*
+            pest: ^4.0
+            pest-plugin-laravel: ^4.0
+            dependency-version: prefer-stable
+          - php: 8.4
+            laravel: 12.*
+            testbench: 10.*
+            filament: 4.*
+            pest: ^4.0
+            pest-plugin-laravel: ^4.0
+            dependency-version: prefer-stable
+          - php: 8.3
+            laravel: 11.*
+            testbench: 9.*
+            filament: 4.*
+            pest: ^4.0
+            pest-plugin-laravel: ^4.0
+            dependency-version: prefer-stable
         exclude:
           - laravel: 13.*
             php: 8.2
           - laravel: 11.*
             php: 8.5
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.dependency-version }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - F${{ matrix.filament }} - ${{ matrix.dependency-version }}
     steps:
       - uses: actions/checkout@v6
 
@@ -80,7 +106,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer config policy.advisories.block false
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "pestphp/pest:${{ matrix.pest }}" "pestphp/pest-plugin-laravel:${{ matrix.pest-plugin-laravel }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "filament/filament:${{ matrix.filament }}" "pestphp/pest:${{ matrix.pest }}" "pestphp/pest-plugin-laravel:${{ matrix.pest-plugin-laravel }}" --no-interaction --no-update
           if [ "${{ matrix.php }}" = "8.2" ]; then composer remove pestphp/pest-plugin-browser --dev --no-interaction --no-update; fi
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 

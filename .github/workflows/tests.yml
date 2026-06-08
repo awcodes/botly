@@ -23,6 +23,7 @@ jobs:
       matrix:
         php: [8.5, 8.4, 8.3]
         laravel: [13.*, 12.*, 11.*]
+        filament: [5.*]
         stability: [prefer-stable]
         include:
           - laravel: 13.*
@@ -31,10 +32,28 @@ jobs:
             testbench: 10.*
           - laravel: 11.*
             testbench: 9.*
+          # Targeted Filament v4 coverage (v5 is covered by the matrix above).
+          # Filament 4 and 5 support the same Laravel/PHP range, so one job per
+          # Laravel line is enough without doubling the matrix.
+          - php: 8.4
+            laravel: 13.*
+            testbench: 11.*
+            filament: 4.*
+            stability: prefer-stable
+          - php: 8.4
+            laravel: 12.*
+            testbench: 10.*
+            filament: 4.*
+            stability: prefer-stable
+          - php: 8.3
+            laravel: 11.*
+            testbench: 9.*
+            filament: 4.*
+            stability: prefer-stable
         exclude:
           - laravel: 11.*
             php: 8.5
-    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - F${{ matrix.filament }} - ${{ matrix.stability }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
@@ -60,7 +79,7 @@ jobs:
           echo "::add-matcher::${{ runner.tool_cache }}/php.json"
           echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
           composer config policy.advisories.block false
-          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "filament/filament:${{ matrix.filament }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Execute tests
