@@ -1,0 +1,9 @@
+version: 1
+
+title: Botly
+
+navigation:
+  - index
+  - installation
+  - usage
+  - configuration
