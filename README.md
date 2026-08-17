@@ -132,9 +132,10 @@ BotlyPlugin::make()
 
 ```php
 BotlyPlugin::make()
-    ->navigationIcon('heroicon-o-robot')
+    ->navigationIcon('heroicon-o-document-text')
     ->navigationGroup('Settings')
-    ->navigationLabel('Robots.txt'),
+    ->navigationLabel('Robots.txt')
+    ->navigationSort(3),
 ```
 
 ### Page
