@@ -37,5 +37,5 @@ it('returns an empty body when there is no data', function (): void {
     $response = $this->get('/robots.txt');
 
     $response->assertStatus(200);
-    expect(mb_trim($response->content()))->toBe('');
+    expect(trim($response->content()))->toBe('');
 });
