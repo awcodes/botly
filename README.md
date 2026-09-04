@@ -158,6 +158,19 @@ The admin page includes a **Block AI Crawlers** checkbox list. Selecting crawler
 composer test
 ```
 
+## Development Workbench
+
+Install dependencies and start the package's development application:
+
+```bash
+composer install
+composer serve
+```
+
+Open `/admin` and sign in with `test@example.com` / `password`. The Workbench
+registers Botly through its documented plugin API, seeds representative robots
+rules, and serves their output at `/robots.txt`.
+
 ## Contributing
 
 Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
