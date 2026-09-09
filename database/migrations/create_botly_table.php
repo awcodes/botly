@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('botly', static function (Blueprint $table) {
+        Schema::create('botly', static function (Blueprint $table): void {
             $table->id();
 
             $table->longText('rules')->nullable();

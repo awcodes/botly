@@ -12,6 +12,8 @@ try {
             // Drop this line if the package has no workbench/: rector hard-errors
             // on a path that does not exist.
             __DIR__ . '/workbench',
+            __DIR__ . '/config',
+            __DIR__ . '/database',
         ])
         // Compiled Blade under workbench/storage is gitignored but present locally
         // once the workbench app has been run, and it is not valid standalone PHP.
