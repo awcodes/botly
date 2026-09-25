@@ -5,9 +5,13 @@ description: Install Botly, run its migration and register the plugin in a Filam
 
 # Installation
 
-## Requirements
+## Compatibility
 
-Botly requires PHP 8.2 or higher and Filament v4 or v5.
+| Filament version | Package version |
+|------------------|-----------------|
+| 4.x & 5.x        | 1.x             |
+
+Botly requires PHP 8.2 or later and `filament/filament`.
 
 ## Install the package
 

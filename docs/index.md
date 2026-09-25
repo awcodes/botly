@@ -26,10 +26,6 @@ If you would rather serve a static file, the admin page has an **Export Robots.t
 > [!IMPORTANT]
 > A static `public/robots.txt` file takes precedence over Botly's route, because the web server serves it before the request ever reaches Laravel. If one exists, Botly shows a warning on the admin page with actions to delete or rename it.
 
-## Requirements
-
-Botly requires PHP 8.2 or higher and Filament v4 or v5.
-
 ## Where to go next
 
 - [Installation](installation.md) — install the package, run the migration and register the plugin.
