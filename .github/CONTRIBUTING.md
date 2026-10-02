@@ -37,16 +37,51 @@ Before submitting a pull request:
 
 If the project maintainer has any additional requirements, you will find them listed here.
 
-- **[PSR-2 Coding Standard](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)** – The easiest way to apply the conventions is to install [PHP Code Sniffer](https://pear.php.net/package/PHP_CodeSniffer).
+- **Code style** – This project uses [Laravel Pint](https://laravel.com/docs/pint). Run `composer lint` to apply the conventions.
 
 - **Add tests!** — Your patch won't be accepted if it doesn't have tests.
 
-- **Document any change in behavior** – Make sure the `README.md` and any other relevant documentation are kept up to date.
+- **Document any change in behavior** – Make sure the documentation in `docs/` and any other relevant documentation are kept up to date.
 
 - **Consider our release cycle** – We try to follow [SemVer v2.0.0](https://semver.org/). Randomly breaking public APIs is not an option.
 
 - **One pull request per feature** – If you want to do more than one thing, send multiple pull requests.
 
 - **Send coherent history** – Make sure each commit in your pull request is meaningful. If you had to make multiple intermediate commits while developing, please [squash them](https://www.git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages) before submitting.
+
+## Development
+
+Install dependencies and start the package's development Workbench:
+
+```bash
+composer install
+composer serve
+```
+
+Open `/admin` and sign in with `test@example.com` / `password`. The Workbench registers Botly through its documented plugin API, seeds representative robots rules, and serves their output at `/robots.txt`.
+
+## Testing
+
+Run the full suite of checks (Rector dry-run, Pint, PHPStan and Pest):
+
+```bash
+composer test
+```
+
+Or run each check on its own:
+
+```bash
+composer test:refactor  # Rector dry-run
+composer test:lint      # Pint check, without fixing
+composer test:types     # PHPStan
+composer test:unit      # Pest
+```
+
+To apply fixes rather than check for them:
+
+```bash
+composer lint      # Fix code style with Pint
+composer refactor  # Apply Rector transformations
+```
 
 **Happy coding**!

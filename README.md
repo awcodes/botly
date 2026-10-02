@@ -1,175 +1,34 @@
 # Botly
 
-Botly is a Filament plugin to manage your site's `robots.txt` file directly from the Filament admin panel. Rules, sitemaps, and AI crawler blocks are stored in the database and served dynamically — no static file required.
+Manage your site's `robots.txt` file from the Filament admin panel, with rules, sitemaps and AI crawler blocks stored in the database and served dynamically.
 
 [![Latest Version](https://img.shields.io/github/release/awcodes/botly.svg?style=flat-square&color=blue&label=Release)](https://github.com/awcodes/botly/releases)
 [![MIT Licensed](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/awcodes/botly.svg?style=flat-square&color=blue&label=Downloads)](https://packagist.org/packages/awcodes/botly)
 [![GitHub Repo stars](https://img.shields.io/github/stars/awcodes/botly?style=flat-square&color=blue&label=Stars)](https://github.com/awcodes/botly/stargazers)
-[![Filament Version](https://img.shields.io/badge/Filament-4.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/4.x/panels/installation)
-[![Filament Version](https://img.shields.io/badge/Filament-5.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/5.x/panels/installation)
+[![Filament Version](https://img.shields.io/badge/Filament-4.x%20%26%205.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/5.x/introduction/installation)
 
-<!-- [docs_start] -->
+## Documentation
+
+The full documentation lives at **[docs.aw.codes/botly](https://docs.aw.codes/botly/1.x)**.
+
+## Compatibility
+
+| Filament version | Package version |
+|------------------|-----------------|
+| 4.x & 5.x        | 1.x             |
 
 ## Installation
-
-Install the package via Composer:
 
 ```bash
 composer require awcodes/botly
 ```
 
-Run the installation command to publish migrations and run them:
+Botly needs its migration run and the plugin registered in your panel. See [Installation](https://docs.aw.codes/botly/1.x/installation) for those steps.
 
-```bash
-php artisan botly:install
-```
+## Changelog
 
-Or publish and run the migration manually:
-
-```bash
-php artisan vendor:publish --tag="botly-migrations"
-php artisan migrate
-```
-
-Optionally publish the config file:
-
-```bash
-php artisan vendor:publish --tag="botly-config"
-```
-
-## Setup
-
-Register the plugin in your Filament panel provider:
-
-```php
-use Awcodes\Botly\BotlyPlugin;
-
-$panel->plugins([
-    BotlyPlugin::make(),
-]);
-```
-
-That's it. Botly registers a **Robots Manager** page in your panel and automatically serves `/robots.txt` via a dynamic route.
-
-## How It Works
-
-Botly stores your robots configuration in the database. When `/robots.txt` is requested, the rules are read from the database and formatted as valid `robots.txt` output on the fly. You can also export the current configuration to a static `public/robots.txt` file using the **Export Robots.txt** button on the admin page.
-
-> [!IMPORTANT]
-> If a static `public/robots.txt` file already exists, Botly will display a warning in the admin UI. The file must be deleted or renamed before the dynamic route can take effect.
-
-## Configuration
-
-The published config file (`config/botly.php`) allows you to set default values that are used when no database record exists yet:
-
-```php
-return [
-    'defaults' => [
-        'rules' => [],
-        'sitemaps' => [],
-        'ai_crawlers' => [],
-    ],
-    'persistent_rules' => [],
-];
-```
-
-### Persistent Rules
-
-Persistent rules are rules that are always included in the output and cannot be edited or deleted from the admin UI. You can define them in the config file or fluently on the plugin:
-
-**Via config:**
-
-```php
-// config/botly.php
-'persistent_rules' => [
-    [
-        'user_agent' => '*',
-        'directive' => 'disallow',
-        'path' => '/admin',
-    ],
-],
-```
-
-**Via plugin:**
-
-```php
-BotlyPlugin::make()
-    ->persistentRules([
-        [
-            'user_agent' => '*',
-            'directive' => 'disallow',
-            'path' => '/admin',
-        ],
-    ]),
-```
-
-Each rule is an array with three keys:
-
-| Key          | Values                                            |
-|--------------|---------------------------------------------------|
-| `user_agent` | Any string, e.g. `*`, `Googlebot`                 |
-| `directive`  | `allow`, `disallow`, `crawl-delay`, `clean-param` |
-| `path`       | The path to allow or disallow, e.g. `/admin`      |
-
-## Customization
-
-### Authorization
-
-By default, all users with access to your Filament panel can visit the Botly page. You can restrict access by passing a boolean or a closure to `authorize()`:
-
-```php
-// Always deny access
-BotlyPlugin::make()
-    ->authorize(false),
-
-// Conditionally allow access
-BotlyPlugin::make()
-    ->authorize(fn () => auth()->user()->isAdmin()),
-```
-
-### Navigation
-
-```php
-BotlyPlugin::make()
-    ->navigationIcon('heroicon-o-document-text')
-    ->navigationGroup('Settings')
-    ->navigationLabel('Robots.txt')
-    ->navigationSort(3),
-```
-
-### Page
-
-```php
-BotlyPlugin::make()
-    ->title('Robots Manager')
-    ->slug('robots-manager'),
-```
-
-## AI Crawler Blocking
-
-The admin page includes a **Block AI Crawlers** checkbox list. Selecting crawlers will add `Disallow: /` entries for each one in the output. Botly ships with a curated list of known AI crawlers including GPTBot, ClaudeBot, PerplexityBot, and more.
-
-<!-- [docs_end] -->
-
-## Testing
-
-```bash
-composer test
-```
-
-## Development Workbench
-
-Install dependencies and start the package's development application:
-
-```bash
-composer install
-composer serve
-```
-
-Open `/admin` and sign in with `test@example.com` / `password`. The Workbench
-registers Botly through its documented plugin API, seeds representative robots
-rules, and serves their output at `/robots.txt`.
+Please see the [releases](https://github.com/awcodes/botly/releases) for what has changed recently.
 
 ## Contributing
 
