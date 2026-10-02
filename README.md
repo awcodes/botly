@@ -6,7 +6,7 @@ Manage your site's `robots.txt` file from the Filament admin panel, with rules, 
 [![MIT Licensed](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE.md)
 [![Total Downloads](https://img.shields.io/packagist/dt/awcodes/botly.svg?style=flat-square&color=blue&label=Downloads)](https://packagist.org/packages/awcodes/botly)
 [![GitHub Repo stars](https://img.shields.io/github/stars/awcodes/botly?style=flat-square&color=blue&label=Stars)](https://github.com/awcodes/botly/stargazers)
-[![Filament Version](https://img.shields.io/badge/Filament-4.x%20%26%205.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/5.x/panels/installation)
+[![Filament Version](https://img.shields.io/badge/Filament-4.x%20%26%205.x-d97706.svg?style=flat-square)](https://filamentphp.com/docs/5.x/introduction/installation)
 
 ## Documentation
 
