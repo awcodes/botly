@@ -38,6 +38,9 @@ Use it to give a fresh install sensible output, not as a way to enforce rules. F
 
 Persistent rules are always included in the output and cannot be edited or deleted from the admin UI. They appear in the rules list on the page with their fields disabled and no delete action.
 
+![The persistent rules table on the Robots Manager page, showing a read-only Disallow rule for /admin](assets/persistent-rules-light.png#gh-light-mode-only)
+![The persistent rules table on the Robots Manager page, showing a read-only Disallow rule for /admin](assets/persistent-rules-dark.png#gh-dark-mode-only)
+
 Define them in the config file:
 
 ```php

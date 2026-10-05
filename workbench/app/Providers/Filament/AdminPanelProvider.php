@@ -30,7 +30,10 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(Login::class)
             ->plugins([
-                BotlyPlugin::make(),
+                BotlyPlugin::make()
+                    ->persistentRules([
+                        ['user_agent' => '*', 'directive' => 'disallow', 'path' => '/admin'],
+                    ]),
             ])
             ->pages([
                 Dashboard::class,

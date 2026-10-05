@@ -36,6 +36,7 @@ workbench:
         --tag: botly-migrations
         --force: true
     - workbench:assert-botly-migration
+    - workbench:remove-static-robots-file
     - db-wipe
     - migrate-fresh
   assets:
