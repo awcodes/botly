@@ -21,6 +21,8 @@ The output is assembled in a fixed order:
 2. Blocked AI crawlers, each as a `User-agent` line followed by `Disallow: /`.
 3. Sitemap URLs, as `Sitemap:` lines.
 
+![The robots.txt served by Botly: rules grouped by user agent, then a Disallow block for each blocked AI crawler, then two Sitemap lines](assets/robots-txt-light.png)
+
 If you would rather serve a static file, the admin page has an **Export Robots.txt** action that writes the current output to `public/robots.txt`.
 
 > [!IMPORTANT]
