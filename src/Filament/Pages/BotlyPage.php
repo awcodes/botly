@@ -6,6 +6,7 @@ namespace Awcodes\Botly\Filament\Pages;
 
 use Awcodes\Botly\Action\ParseDirectivesToText;
 use Awcodes\Botly\BotlyPlugin;
+use Awcodes\Botly\Enums\Directive;
 use Awcodes\Botly\Models\Botly;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -108,7 +109,7 @@ class BotlyPage extends Page implements HasActions, HasSchemas
                                 unlink(public_path('robots.txt'));
 
                                 Notification::make()
-                                    ->title(__('botly::botly.form.callout.deleted_success'))
+                                    ->title(__('botly::botly.form.callout.delete_success'))
                                     ->success()
                                     ->send();
                             }),
@@ -120,7 +121,7 @@ class BotlyPage extends Page implements HasActions, HasSchemas
                                 rename(public_path('robots.txt'), public_path('robots-bak.txt'));
 
                                 Notification::make()
-                                    ->title(__('botly::botly.form.callout.renamed_success'))
+                                    ->title(__('botly::botly.form.callout.rename_success'))
                                     ->success()
                                     ->send();
                             }),
@@ -139,7 +140,8 @@ class BotlyPage extends Page implements HasActions, HasSchemas
                     ])
                     ->schema([
                         TextEntry::make('user_agent'),
-                        TextEntry::make('directive'),
+                        TextEntry::make('directive')
+                            ->formatStateUsing(fn (string $state): string => Directive::tryFromKey($state)?->getLabel() ?? $state),
                         TextEntry::make('path'),
                     ]),
                 Repeater::make('rules')
@@ -174,12 +176,7 @@ class BotlyPage extends Page implements HasActions, HasSchemas
                             ->label(__('botly::botly.form.rules.fields.directive'))
                             ->required()
                             ->default('disallow')
-                            ->options([
-                                'allow' => __('botly::botly.form.rules.fields.allow'),
-                                'disallow' => __('botly::botly.form.rules.fields.disallow'),
-                                'crawl-delay' => __('botly::botly.form.rules.fields.crawl_delay'),
-                                'clean-param' => __('botly::botly.form.rules.fields.clean_param'),
-                            ])
+                            ->options(Directive::getOptions())
                             ->disabled(function (Select $component, $parentRepeaterItemIndex): bool {
                                 $rule = array_values($component->getParentRepeater()->getRawState())[$parentRepeaterItemIndex] ?? null;
 
