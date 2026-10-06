@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Awcodes\Botly\Action;
 
 use Awcodes\Botly\BotlyPlugin;
+use Awcodes\Botly\Enums\Directive;
 use Awcodes\Botly\Models\Botly;
 
 class ParseDirectivesToText
@@ -28,7 +29,7 @@ class ParseDirectivesToText
             $lines[] = "User-agent: {$agent}";
 
             foreach ($rule as $r) {
-                $lines[] = "{$r['directive']}: {$r['path']}";
+                $lines[] = Directive::toRobotsName($r['directive']) . ": {$r['path']}";
             }
             $lines[] = '';
         }

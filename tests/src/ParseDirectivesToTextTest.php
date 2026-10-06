@@ -138,3 +138,38 @@ it('uses factory defaults for a complete robots.txt output', function (): void {
         ->toContain('Disallow: /')
         ->toContain('Sitemap: https://example.com/sitemap.xml');
 });
+
+it('writes directives with their robots.txt names', function (): void {
+    Botly::factory()->create([
+        'rules' => [
+            ['user_agent' => '*', 'directive' => 'disallow', 'path' => '/cart'],
+            ['user_agent' => '*', 'directive' => 'allow', 'path' => '/cart/public'],
+            ['user_agent' => '*', 'directive' => 'crawl-delay', 'path' => '5'],
+            ['user_agent' => '*', 'directive' => 'clean-param', 'path' => 'ref /articles/'],
+        ],
+        'sitemaps' => [],
+        'ai_crawlers' => [],
+    ]);
+
+    $result = (new ParseDirectivesToText())->handle();
+
+    expect($result)
+        ->toContain("Disallow: /cart\n")
+        ->toContain('Allow: /cart/public')
+        ->toContain('Crawl-delay: 5')
+        ->toContain('Clean-param: ref /articles/')
+        ->not->toContain('disallow:')
+        ->not->toContain('crawl-delay:');
+});
+
+it('writes unknown directives as they were stored', function (): void {
+    Botly::factory()->create([
+        'rules' => [
+            ['user_agent' => '*', 'directive' => 'Host', 'path' => 'example.com'],
+        ],
+        'sitemaps' => [],
+        'ai_crawlers' => [],
+    ]);
+
+    expect((new ParseDirectivesToText())->handle())->toContain('Host: example.com');
+});
